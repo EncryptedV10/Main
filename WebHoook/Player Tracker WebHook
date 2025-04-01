@@ -1,0 +1,10 @@
+local http = game:GetService("HttpService")
+local webhook = "--Here Is WebHook"
+
+local function logPlayer(name)
+    local data = {content = name .. " executed the script"}
+    local jsonData = http:JSONEncode(data)
+    http:PostAsync(webhook, jsonData, Enum.HttpContentType.ApplicationJson)
+end
+
+logPlayer(game.Players.LocalPlayer.Name)
