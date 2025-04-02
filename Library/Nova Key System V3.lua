@@ -19,7 +19,7 @@ function library:AddWindow(text, keybind)
     Main.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
     Main.Size = UDim2.new(0, 400, 0, 150)
     Main.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Main.Visible = true -- Ensure it's visible
+    Main.Visible = true
 
     local KeyLabel = Instance.new("TextLabel")
     KeyLabel.Parent = Main
