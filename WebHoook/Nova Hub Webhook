@@ -1,0 +1,28 @@
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+
+local webhookUrl = "https://discord.com/api/webhooks/1353311717823746068/6QtGJwIY9iaQAbTLTkGbui6lwmiX11iu5eertAhPWRLp-rS6psnOkyHY5sLn9VaN3OJS"
+
+local function sendWebhook(player)
+    local data = {
+        content = "",
+        embeds = {
+            {
+                title = "Player Joined",
+                fields = {
+                    { name = "Game", value = game.Name, inline = true },
+                    { name = "Game ID", value = game.PlaceId, inline = true },
+                    { name = "Username", value = player.Name, inline = true },
+                    { name = "User ID", value = player.UserId, inline = true },
+                    { name = "Game Link", value = "https://www.roblox.com/games/" .. game.PlaceId .. "/" .. game.Name, inline = true },
+                    { name = "Server Link", value = "https://www.roblox.com/games/" .. game.PlaceId .. "/?serverId=" .. game.JobId, inline = true },
+                }
+            }
+        }
+    }
+
+    local jsonData = HttpService:JSONEncode(data)
+    HttpService:PostAsync(webhookUrl, jsonData, Enum.HttpContentType.ApplicationJson)
+end
+
+Players.PlayerAdded:Connect(sendWebhook)
