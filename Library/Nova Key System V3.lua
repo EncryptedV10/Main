@@ -1,8 +1,3 @@
-local ui = game.CoreGui:FindFirstChild("ScriptKeyUI")
-if ui then
-  ui:Destroy()
-end
-
 local library = {}
 
 local correctKey = "NovaHubRework"
@@ -11,9 +6,10 @@ function library:AddWindow(text, keybind)
     local bind = keybind or Enum.KeyCode.RightControl
     local uihide = false
 
+    local player = game.Players.LocalPlayer
     local KeyUI = Instance.new("ScreenGui")
     KeyUI.Name = "ScriptKeyUI"
-    KeyUI.Parent = game.CoreGui
+    KeyUI.Parent = player:WaitForChild("PlayerGui") 
     KeyUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     local Main = Instance.new("Frame")
@@ -23,10 +19,7 @@ function library:AddWindow(text, keybind)
     Main.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
     Main.Size = UDim2.new(0, 400, 0, 150)
     Main.Position = UDim2.new(0.5, 0, 0.5, 0)
-    
-    local MainCorner = Instance.new("UICorner")
-    MainCorner.CornerRadius = UDim.new(0, 9)
-    MainCorner.Parent = Main
+    Main.Visible = true -- Ensure it's visible
 
     local KeyLabel = Instance.new("TextLabel")
     KeyLabel.Parent = Main
@@ -47,27 +40,6 @@ function library:AddWindow(text, keybind)
     KeyBox.PlaceholderText = "Enter your key here"
     KeyBox.TextColor3 = Color3.fromRGB(225, 225, 225)
 
-    local KeyCorner = Instance.new("UICorner")
-    KeyCorner.CornerRadius = UDim.new(0, 5)
-    KeyCorner.Parent = KeyBox
-    
-    local CopyButton = Instance.new("TextButton")
-    CopyButton.Parent = Main
-    CopyButton.Size = UDim2.new(0.5, -15, 0, 30)
-    CopyButton.Position = UDim2.new(0, 10, 0, 80)
-    CopyButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    CopyButton.Font = Enum.Font.Gotham
-    CopyButton.Text = "Copy Key Link"
-    CopyButton.TextColor3 = Color3.fromRGB(225, 225, 225)
-    
-    local CopyCorner = Instance.new("UICorner")
-    CopyCorner.CornerRadius = UDim.new(0, 5)
-    CopyCorner.Parent = CopyButton
-    
-    CopyButton.MouseButton1Click:Connect(function()
-        setclipboard("https://discord.gg/3rFk4uANmm")
-    end)
-
     local SubmitButton = Instance.new("TextButton")
     SubmitButton.Parent = Main
     SubmitButton.Size = UDim2.new(0.5, -15, 0, 30)
@@ -77,14 +49,11 @@ function library:AddWindow(text, keybind)
     SubmitButton.Text = "Submit Key"
     SubmitButton.TextColor3 = Color3.fromRGB(225, 225, 225)
 
-    local SubmitCorner = Instance.new("UICorner")
-    SubmitCorner.CornerRadius = UDim.new(0, 5)
-    SubmitCorner.Parent = SubmitButton
-
     SubmitButton.MouseButton1Click:Connect(function()
+        print("Entered Key:", KeyBox.Text)
         if KeyBox.Text == correctKey then
             print("Correct Key, Welcome To Nova Hub")
-            KeyUI:Destroy() 
+            KeyUI:Destroy()
         else
             print("Incorrect Key, Try Again")
         end
