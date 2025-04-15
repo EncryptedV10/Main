@@ -14,7 +14,7 @@ Home:AddDiscordInvite({
     Invite = Discord
 })
 
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EncryptedV10/Main/refs/heads/main/Library/Ahmad%20Stuff/Function%20test.lua"))()
 
 Home:AddSection({"Local Player"})
 Silder(Home, "Set WalkSpeed", 0, 100000, 1000)
